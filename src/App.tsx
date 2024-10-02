@@ -7,7 +7,7 @@ function App() {
   const pathRef = useRef<PathT>(null);
 
   // TODO: Calculate path with besier curves for smoothness
-  // !Pay attension on T and Q path shortcuts https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
+  // !Pay attension on a Q path shortcut https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
   const path = calculatePath();
 
   // TODO: setInterval for changing Path
