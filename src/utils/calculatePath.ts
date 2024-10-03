@@ -42,22 +42,16 @@ function pointsToPath(points: number[]) {
     // Calculate coords for 2nd point of quadratic Bezier curve
     const { dx, dy } = calculateQuadraticCurveParam(previousCoords, nextCoords);
 
-    console.log(previousCoords, dx, dy, nextCoords);
-
-    // Start of line
-    if (i === 0) {
-      path = `M${points[i]} ${points[i + 1]}`;
-      continue;
-    }
-
-    // End of line
-    if (i === points.length - 2) {
-      path = `${path} ${points[i]} ${points[i + 1]} Z`;
-      continue;
-    }
-
-    path = `${path} L${points[i]} ${points[i + 1]}`;
+    path = `${path} Q${dx} ${dy} ${points[i]} ${points[i + 1]}`;
   }
+
+  // Close the line
+  const { dx, dy } = calculateQuadraticCurveParam(
+    [points[points.length - 2], points[points.length - 1]],
+    [points[0], points[1]]
+  );
+
+  path = `${path} Q${dx} ${dy} ${points[0]} ${points[1]}`;
 
   return path;
 }
