@@ -1,5 +1,5 @@
 import { Path as PathT } from 'konva/lib/shapes/Path';
-import { Layer, Path, Stage } from 'react-konva';
+import { Layer, Line, Path, Stage } from 'react-konva';
 import { calculatePath } from '@utils';
 import { useRef } from 'react';
 
@@ -50,6 +50,22 @@ function App() {
           stroke="blue"
           strokeWidth={2}
           tension={0.35}
+          lineCap="round"
+          lineJoin="round"
+          closed={true}
+        />
+        <Line
+          points={[1232, 609]}
+          stroke="red"
+          strokeWidth={8}
+          lineCap="round"
+          lineJoin="round"
+          closed={true}
+        />
+        <Line
+          points={[866, 609]}
+          stroke="red"
+          strokeWidth={8}
           lineCap="round"
           lineJoin="round"
           closed={true}
