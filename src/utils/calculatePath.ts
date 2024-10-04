@@ -1,8 +1,10 @@
-const DEFAULT_POINTS_COUNT = 10;
-const DEFAULT_RADIUS = 200;
-
-const HALF_WIDTH = window.innerWidth / 2;
-const HALF_HEIGHT = window.innerHeight / 2;
+import { calculateQuadraticCurveParam } from '@utils';
+import {
+  DEFAULT_POINTS_COUNT,
+  DEFAULT_RADIUS,
+  HALF_HEIGHT,
+  HALF_WIDTH,
+} from 'constants';
 
 export function calculatePath(
   numPoints: number = DEFAULT_POINTS_COUNT,
@@ -22,13 +24,14 @@ export function calculatePath(
     points.push(y);
   }
 
-  const path = pointsToPath(points);
+  const { path, qCoords } = pointsToPath(points);
 
-  return path;
+  return { path, qCoords };
 }
 
 function pointsToPath(points: number[]) {
   let path = `M${points[0]} ${points[1]}`;
+  const qCoords: { dx: number; dy: number }[] = [];
 
   // i = 2 because we already added two first coords to path varibale
   for (
@@ -42,6 +45,7 @@ function pointsToPath(points: number[]) {
     // Calculate coords for 2nd point of quadratic Bezier curve
     const { dx, dy } = calculateQuadraticCurveParam(previousCoords, nextCoords);
 
+    qCoords.push({ dx, dy });
     path = `${path} Q${dx} ${dy} ${points[i]} ${points[i + 1]}`;
   }
 
@@ -51,51 +55,8 @@ function pointsToPath(points: number[]) {
     [points[0], points[1]]
   );
 
+  qCoords.push({ dx, dy });
   path = `${path} Q${dx} ${dy} ${points[0]} ${points[1]}`;
 
-  return path;
-}
-
-function calculateQuadraticCurveParam(
-  firstPointCoords: [number, number],
-  thirdPointCoords: [number, number]
-) {
-  // Center coords for segment between firstPoint and thirdPoint
-  const currentSegmentCenterX = (firstPointCoords[0] + thirdPointCoords[0]) / 2;
-  const currentSegmentCenterY = (firstPointCoords[1] + thirdPointCoords[1]) / 2;
-
-  // Radius of calculated circle
-  const trueRadius = Math.sqrt(
-    (firstPointCoords[0] - HALF_WIDTH) ** 2 +
-      (firstPointCoords[1] - HALF_HEIGHT) ** 2
-  );
-
-  // Distance from currentSegmentCenter to the center of the calculated circle
-  const minRadius = Math.sqrt(
-    (currentSegmentCenterX - HALF_WIDTH) ** 2 +
-      (currentSegmentCenterY - HALF_HEIGHT) ** 2
-  );
-
-  // In De Casteljau’s algorithm, quadratic Bezier curve's 2nd point is 2 times higher than the heighest curve point
-  // https://javascript.info/bezier-curve#de-casteljau-s-algorithm
-  const bezierDelta = (trueRadius - minRadius) * 2;
-
-  const bezierRadius = minRadius + bezierDelta;
-
-  // Normalize currentSegment coords and multiply by radius
-  const trueSegmentCenterCoords = [
-    Math.round(
-      ((currentSegmentCenterX - HALF_WIDTH) / minRadius) * bezierRadius +
-        HALF_WIDTH
-    ),
-    Math.round(
-      ((currentSegmentCenterY - HALF_HEIGHT) / minRadius) * bezierRadius +
-        HALF_HEIGHT
-    ),
-  ];
-
-  return {
-    dx: trueSegmentCenterCoords[0],
-    dy: trueSegmentCenterCoords[1],
-  };
+  return { path, qCoords };
 }
