@@ -22,7 +22,9 @@
 
     "baseUrl": "src",
     "paths": {
-      "@utils": ["./utils/index"]
+      "@utils": ["./utils/index"],
+      "@components": ["./components/index"],
+      "@hooks": ["./hooks/index"]
     }
   },
   "include": ["src"]
