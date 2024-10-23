@@ -19,5 +19,8 @@ const shadowProps = {
 export function Figure({ numPoints, radius, ...rest }: Props) {
   const { pathRef, pathData } = usePath({ numPoints, radius });
 
+  // TODO: Understand how to rotate paths correcty
+  // Maybe wrap it into another element and rotate it?
+
   return <Path ref={pathRef} data={pathData.path} {...rest} {...shadowProps} />;
 }

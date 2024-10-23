@@ -1,5 +1,5 @@
 // TODO: Figure out what is this
-const amount = 8;
+const FFT_POWER = 8;
 
 export function createAudioContext() {
   const audio = new AudioContext();
@@ -8,7 +8,7 @@ export function createAudioContext() {
   // Create two separate analyzers for left and right channel.
   const analyserL = audio.createAnalyser();
   analyserL.smoothingTimeConstant = 0.25;
-  analyserL.fftSize = Math.pow(2, amount) * 2;
+  analyserL.fftSize = Math.pow(2, FFT_POWER) * 2;
 
   const analyserR = audio.createAnalyser();
   analyserR.smoothingTimeConstant = analyserL.smoothingTimeConstant;
@@ -28,31 +28,5 @@ export function createAudioContext() {
   // Connect source to output also so we can hear it
   source.connect(audio.destination);
 
-  loadAudioBuffer(
-    audio,
-    source,
-    'http://assets.paperjs.org/audio/gnossienne.mp3'
-  );
-}
-
-async function loadAudioBuffer(
-  audio: AudioContext,
-  source: AudioBufferSourceNode,
-  url: string
-) {
-  try {
-    const bufferedResponse = await fetch(url).then((res) => res.arrayBuffer());
-
-    audio.decodeAudioData(bufferedResponse, (buffer) => {
-      source.buffer = buffer;
-
-      // TODO: Toggle if needed
-      source.loop = false;
-      source.start(0);
-    });
-  } catch (err) {
-    if (err instanceof Error) {
-      throw new Error(err.message);
-    }
-  }
+  return { source, audio };
 }
