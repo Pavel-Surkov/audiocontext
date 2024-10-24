@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 export function useAudioContext() {
   const [loading, setLoading] = useState(true);
 
-  const { audio, source } = useMemo(() => {
+  const context = useMemo(() => {
     const context = createAudioContext();
 
     loadAudioBuffer(
@@ -16,5 +16,5 @@ export function useAudioContext() {
     return context;
   }, []);
 
-  return { audio, source, loading };
+  return { ...context, loading };
 }

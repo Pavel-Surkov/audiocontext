@@ -1,8 +1,11 @@
-// TODO: Figure out what is this
-const FFT_POWER = 8;
-
 export function createAudioContext() {
-  const audio = new AudioContext();
+  const FFT_POWER = 8;
+
+  const audio = new AudioContext({
+    // Most common simple rate -> getByteFrequencyData covers frequences [0, ... (sampleRate / 2)] Hz
+    // [MDN Reference](https://developer.mozilla.org/docs/Web/API/AnalyserNode/getByteFrequencyData)
+    sampleRate: 44100,
+  });
   const source = audio.createBufferSource();
 
   // Create two separate analyzers for left and right channel.
@@ -15,7 +18,7 @@ export function createAudioContext() {
   analyserR.fftSize = analyserL.fftSize;
 
   // Create the buffer to receive the analyzed data.
-  // const freqByteData = new Uint8Array(analyserL.frequencyBinCount);
+  const freqByteData = new Uint8Array(analyserL.frequencyBinCount);
 
   // Create a splitter to feed them both
   const splitter = audio.createChannelSplitter();
@@ -28,5 +31,5 @@ export function createAudioContext() {
   // Connect source to output also so we can hear it
   source.connect(audio.destination);
 
-  return { source, audio };
+  return { source, audio, analyserL, analyserR, freqByteData, FFT_POWER };
 }

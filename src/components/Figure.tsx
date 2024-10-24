@@ -4,8 +4,7 @@ import Konva from 'konva';
 import { usePath } from '@hooks';
 
 type Props = Konva.PathConfig & {
-  numPoints: number;
-  radius: number;
+  radius?: number;
 };
 
 const shadowProps = {
@@ -16,8 +15,8 @@ const shadowProps = {
   shadowOpacity: 1,
 };
 
-export function Figure({ numPoints, radius, ...rest }: Props) {
-  const { pathRef, pathData } = usePath({ numPoints, radius });
+export function Figure({ radius, ...rest }: Props) {
+  const { pathRef, pathData } = usePath({ radius });
 
   // TODO: Understand how to rotate paths correcty
   // Maybe wrap it into another element and rotate it?

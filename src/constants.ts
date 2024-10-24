@@ -1,5 +1,9 @@
-export const DEFAULT_POINTS_COUNT = 10;
+// For now NUMBER_OF_POINTS is equal for all paths
+// TODO: Configure if theree is need
+export const NUMBER_OF_POINTS = 16;
+
 export const DEFAULT_RADIUS = 200;
+export const DEFAULT_ANIM_SPEED_DIVIDER = 1000;
 
 export const STAGE_WIDTH = window.innerWidth;
 export const STAGE_HEIGHT = window.innerHeight;

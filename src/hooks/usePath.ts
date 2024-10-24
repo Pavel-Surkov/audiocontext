@@ -1,25 +1,29 @@
-import { HALF_HEIGHT, HALF_WIDTH } from 'constants';
+import {
+  NUMBER_OF_POINTS,
+  DEFAULT_RADIUS,
+  DEFAULT_ANIM_SPEED_DIVIDER,
+  HALF_HEIGHT,
+  HALF_WIDTH,
+} from 'constants';
 import { calculatePath } from '@utils';
 import { useEffect, useRef, useState } from 'react';
 import { Path as PathT } from 'konva/lib/shapes/Path';
 import Konva from 'konva';
 
-const DEFAULT_ANIM_SPEED_DIVIDER = 1000;
-
 type Props = {
-  numPoints: number;
-  radius: number;
+  radius?: number;
   speedDivider?: number;
 };
 
 export function usePath({
-  numPoints,
-  radius,
+  radius = DEFAULT_RADIUS,
   speedDivider = DEFAULT_ANIM_SPEED_DIVIDER,
 }: Props) {
   const pathRef = useRef<PathT>(null);
 
-  const [pathData, setPathData] = useState(calculatePath(numPoints, radius));
+  const [pathData, setPathData] = useState(
+    calculatePath(NUMBER_OF_POINTS, radius)
+  );
 
   useEffect(() => {
     const animation = new Konva.Animation((frame) => {
