@@ -1,13 +1,13 @@
 import { calculateQuadraticCurveParam } from '@utils';
 import {
-  DEFAULT_POINTS_COUNT,
+  NUMBER_OF_POINTS,
   DEFAULT_RADIUS,
   HALF_HEIGHT,
   HALF_WIDTH,
 } from 'constants';
 
 export function calculatePath(
-  numPoints: number = DEFAULT_POINTS_COUNT,
+  numPoints: number = NUMBER_OF_POINTS,
   radius: number = DEFAULT_RADIUS
 ) {
   const points = [];

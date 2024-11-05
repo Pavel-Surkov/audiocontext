@@ -4,7 +4,7 @@ export function createAudioContext() {
   const audio = new AudioContext({
     // Most common simple rate -> getByteFrequencyData covers frequences [0, ... (sampleRate / 2)] Hz
     // [MDN Reference](https://developer.mozilla.org/docs/Web/API/AnalyserNode/getByteFrequencyData)
-    sampleRate: 44100,
+    sampleRate: 16000,
   });
   const source = audio.createBufferSource();
 

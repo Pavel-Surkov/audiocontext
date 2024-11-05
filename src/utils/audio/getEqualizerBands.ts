@@ -4,10 +4,12 @@
 
 import { NUMBER_OF_POINTS } from 'constants';
 
+const freqStripes = NUMBER_OF_POINTS / 2;
+
 export function getEqualizerBands(freqData: Uint8Array<ArrayBuffer>) {
   const bands = [];
 
-  const itemsToAvgValue = freqData.length / NUMBER_OF_POINTS;
+  const itemsToAvgValue = freqData.length / freqStripes;
 
   // const amount = Math.sqrt(freqData.length) / 2; // sqrt(256) / 2 -> 8
 
@@ -25,7 +27,7 @@ export function getEqualizerBands(freqData: Uint8Array<ArrayBuffer>) {
   //   bands[i] = Math.sqrt(avg / Math.sqrt(2));
   // }
 
-  for (let i = 0; i < NUMBER_OF_POINTS; i++) {
+  for (let i = 0; i < freqStripes; i++) {
     const start = i * itemsToAvgValue;
     const end = start + itemsToAvgValue;
     let sum = 0;
