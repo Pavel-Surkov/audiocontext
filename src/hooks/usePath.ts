@@ -52,8 +52,6 @@ export function usePath({
         // rightBands = getEqualizerBands(freqByteData);
       }
 
-      console.log(leftBands);
-
       const transformedCurvePoints = pathData.qCoords.map(
         ({ dx, dy }, index) => {
           const indexParam = index % 2 ? 1 : -1;

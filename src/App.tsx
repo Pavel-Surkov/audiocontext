@@ -1,4 +1,4 @@
-import { Figure } from '@components';
+import { Circle } from '@components';
 import { useAudioContext } from '@hooks';
 
 import { STAGE_HEIGHT, STAGE_WIDTH } from 'constants';
@@ -29,18 +29,24 @@ function App() {
   return (
     <>
       {!context.loading && (
-        <button onClick={() => context.source.start(0)}>Start</button>
+        <button
+          className="toggle-button"
+          onClick={() => context.source.start(0)}
+        >
+          Start
+        </button>
       )}
       <Stage width={STAGE_WIDTH} height={STAGE_HEIGHT}>
         <Layer>
-          <Figure
+          <Circle audioContext={context} radius={100} fill="#eb689b" />
+          {/* <Figure
             sphereNumber={0}
             audioContext={context}
             radius={220}
             fill="#99f628"
           />
           <Figure
-            sphereNumber={1}
+            sphereNumber={}
             audioContext={context}
             radius={150}
             fill="#5f27c3"
@@ -50,7 +56,7 @@ function App() {
             audioContext={context}
             radius={80}
             fill="#eb689b"
-          />
+          /> */}
         </Layer>
       </Stage>
     </>
