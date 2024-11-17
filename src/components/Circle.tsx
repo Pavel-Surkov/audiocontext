@@ -36,7 +36,7 @@ export function Circle({
         const leftBandsSum = getBandsSum(leftBands);
         const rightBandsSum = getBandsSum(rightBands);
 
-        const audioMultiplyer = 1 + (leftBandsSum + rightBandsSum) * 5;
+        const audioMultiplyer = 1 + (leftBandsSum + rightBandsSum) * 10;
 
         circleRef.current.radius(radius + audioMultiplyer);
       }
