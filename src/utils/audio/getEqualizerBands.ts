@@ -6,7 +6,7 @@ import { NUMBER_OF_POINTS } from 'constants';
 
 const freqStripes = NUMBER_OF_POINTS / 2;
 
-export function getEqualizerBands(freqData: Uint8Array<ArrayBuffer>) {
+export function getEqualizerBands(freqData: Uint8Array) {
   const bands = [];
 
   const itemsToAvgValue = freqData.length / freqStripes;
