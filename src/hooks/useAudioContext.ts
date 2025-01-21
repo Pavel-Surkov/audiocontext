@@ -7,11 +7,9 @@ export function useAudioContext() {
   const context = useMemo(() => {
     const context = createAudioContext();
 
-    loadAudioBuffer(
-      context.audio,
-      context.source,
-      'http://assets.paperjs.org/audio/gnossienne.mp3'
-    ).then(() => setLoading(false));
+    loadAudioBuffer(context.audio, context.source, '/music.mp3').then(() =>
+      setLoading(false)
+    );
 
     return context;
   }, []);
